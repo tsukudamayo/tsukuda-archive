@@ -254,6 +254,7 @@ def main(dataset_name,
                                        batch_size,
                                        eps,
                                        min_samples)
+    print('clustering_fn', clustering_fn)
     if clustering_name == 'k_means':
         compute, centers, prediction = clustering_fn(X_r, n_clusters=n_clusters)
     elif clustering_name == 'hierarchical':
@@ -272,6 +273,7 @@ def main(dataset_name,
         )
     else:
         compute, centers, prediction = clustering_fn(X_r)
+    print('clustering_fn', clustering_fn)
     # plot k_means
     cluster_plot(X_r,
                  clustering_name,

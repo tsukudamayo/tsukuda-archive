@@ -29,7 +29,7 @@ from sklearn.cluster import MiniBatchKMeans
 # decompose function #
 ######################
 def decompose_pca(X, n_components):
-    pca = PCA(n_components)
+    pca = PCA(n_components=n_components)
     X_pca = pca.fit_transform(X)
     print('pca', pca)
     print('pca/fit', pca.fit(X))
@@ -38,7 +38,7 @@ def decompose_pca(X, n_components):
     return X_pca
 
 def decompose_incremental_pca(X, n_components, batch_size=10):    
-    ipca = IncrementalPCA(n_components, batch_size)
+    ipca = IncrementalPCA(n_components=n_components, batch_size=batch_size)
     X_ipca = ipca.fit_transform(X)
     print('incremental_pca', ipca)
     print('ipca/fit', ipca.fit(X))
@@ -47,14 +47,14 @@ def decompose_incremental_pca(X, n_components, batch_size=10):
     return X_ipca
 
 def decompose_nmf(X, n_components, init='nndsvda', tol=5e-3):
-    nmf = NMF(n_components, init, tol)
+    nmf = NMF(n_components=n_components, init=init, tol=tol)
     X_nmf = nmf.fit_transform(X)
 
     return X_nmf
 
 
 def decompose_fast_ica(X, n_components, whiten=True):
-    fast_ica = FastICA(X, n_components, whiten)
+    fast_ica = FastICA(X, n_components=n_components, whiten=whiten)
     X_fast_ica = fast_ica.fit_transform(X)
 
     return X_fast_ica
@@ -66,11 +66,11 @@ def decompose_minibatch_sparse_pca(X,
                                       n_iter=100,
                                       batch_size=3,
                                       random_state=np.random.RandomState(42)):
-    minibatch_sparse_pca = MiniBatchSparsePCA(n_components,
-                                              alpha,
-                                              n_iter,
-                                              batch_size,
-                                              random_state,)
+    minibatch_sparse_pca = MiniBatchSparsePCA(n_components=n_components,
+                                              alpha=alpha,
+                                              n_iter=n_iter,
+                                              batch_size=batch_size,
+                                              random_state=random_state,)
     X_minibatch_sparse_pca = minibatch_sparse_pca.fit_transform(X)
 
     return X_minibatch_sparse_pca
@@ -82,18 +82,18 @@ def decompose_minibatch_kmeans(X,
                                   batch_size=20,
                                   max_iter=50,
                                   random_state=np.random.RandomState(42)):
-    minibatch_k_means = MiniBatchKMeans(n_components,
-                                        tol,
-                                        batch_size,
-                                        max_iter,
-                                        random_state,)
+    minibatch_k_means = MiniBatchKMeans(n_components=n_clusters,
+                                        tol=tol,
+                                        batch_size=batch_size,
+                                        max_iter=max_iter,
+                                        random_state=random_state,)
     X_minibatch_k_means = minibatch_k_means.fit_transform(X)
 
     return X_minibatch_k_means
 
 
 def decompose_factor_analysis(X, n_components, max_iter=2):
-    factor_analysis = FactorAnalysis(n_components, max_iter)
+    factor_analysis = FactorAnalysis(n_components=n_components, max_iter=max_iter)
     X_factor_analysis = factor_analysis.fit_transform(X)
 
     return X_factor_analysis
@@ -104,7 +104,9 @@ def decompose_kernel_pca(X,
                            kernel='rbf',
                            fit_inverse_transform=True,
                            gamma=10):
-    kpca = KernelPCA(kernel='rbf', fit_inverse_transform=True, gamma=10)
+    kpca = KernelPCA(kernel=kernel,
+                     fit_inverse_transform=fit_inverse_transform,
+                     gamma=gamma)
     X_kpca = kpca.fit_transform(X)
 
     return X_kpca
