@@ -4,6 +4,8 @@ import numpy as np
 import pandas as pd
 import gc
 import operator
+import datetime
+from dateutil.relativedelta import relativedelta
 
 import pandas.tseries.offsets as offsets
 
@@ -150,7 +152,48 @@ def main():
         reserve_tb, sum_table, on='reserve_id', how='left'
     ).fillna(0)
     print(result)
-    
+
+    # cross join ################################################
+    # master of year and month
+    month_mst = pd.DataFrame({
+        'year_month': [(datetime.date(2017,1,1)
+                        + relativedelta(months=x)).strftime('%Y%m')
+                          for x in range(0, 3)]
+    })
+    print('master of year and month \n', month_mst)
+
+    # prepare all join keys with same value for cross join
+    customer_tb['join_key'] = 0
+    month_mst['join_key'] = 0
+
+    # implement cross join to do inner join key of customer_tb and month_mst
+    customer_mst = pd.merge(
+        customer_tb[['customer_id', 'join_key']], month_mst,
+        on='join_key'
+    )
+    print('implement cross join to do inner join key of customer_tb and month_mst',
+          customer_mst)
+
+    # prepare join key of year and month by reserve table
+    reserve_tb['year_month'] = reserve_tb['checkin_date']\
+      .apply(lambda x: pd.to_datetime(x, format='%Y-%m-%d').strftime('%Y%m'))
+    print('prepare join key of year and month by reserve table',
+          reserve_tb['year_month'])
+
+    # join reserve_tabele, calculate total_price
+    summary_result = pd.merge(
+        customer_mst,
+        reserve_tb[['customer_id', 'year_month', 'total_price']],
+        on=['customer_id', 'year_month'],
+        how='left',
+    ).groupby(['customer_id', 'year_month'])['total_price'].sum().reset_index()
+    print('join reserve_tabele, calculate total_price \n', summary_result)
+
+    # if summary_result has no reserve_table, value is 0
+    summary_result.fillna(0, inplace=True)
+    print('if summary_result has no reserve_table, value is 0',
+          summary_result)
+
 
 
 if __name__ == '__main__':
