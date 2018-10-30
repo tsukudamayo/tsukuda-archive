@@ -9,6 +9,7 @@ import (
 	"strconv"
 	"strings"
 	"time"
+    // "path/filepath"
 )
 
 type ProgressBar struct {
@@ -39,8 +40,14 @@ func genereateProgressBar(progress int, max int, percent float64, roundpercent i
 }
 
 func genereateLogging(timestrings string, task string, finishtime int) {
-	filename := timestrings + "_log.csv"
+    // // TODO differences about logdir between linux and windows
+    // logdir := "~/var/log/working/"
+    // if err := os.MkdirAll(logdir, 0777); err != nil {
+    //     fmt.Println(err)
+    // }
+	// filename := logdir + timestrings + "_working.log"
 
+    filename := timestrings + "_working.log"
 	file, err := os.OpenFile(
 		filename, os.O_CREATE|os.O_RDWR|os.O_APPEND, 0666,
 	)
@@ -98,7 +105,7 @@ func main() {
 	// log output
 	// --------------------
 	// time
-	const layout = "2006-01-02"
+	const layout = "20060102"
 	timestrings := time.Now().Format(layout)
 	// timestrings := t.String()
 	task := flag.Arg(1)
