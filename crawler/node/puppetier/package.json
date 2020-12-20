@@ -1,0 +1,20 @@
+{
+  "name": "puppetier",
+  "version": "1.0.0",
+  "description": "",
+  "main": "skelton.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "tsukuda",
+  "license": "MIT",
+  "dependencies": {
+    "@types/node": "^12.0.1",
+    "csv": "^5.1.1",
+    "csv-parse": "^4.4.0",
+    "delay": "^4.1.0",
+    "dotenv": "^6.2.0",
+    "fs": "0.0.1-security",
+    "puppeteer": "^1.11.0"
+  }
+}

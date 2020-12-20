@@ -1,0 +1,16 @@
+{
+    "libs": [
+        "browser",
+        "ecmascript",
+        "puppeteer"
+    ],
+    "loadEagerly": [
+        "./*.js"
+    ],
+    "plugins": {
+        "requirejs": {
+            "baseURL": "./",
+            "paths": {}
+        }
+    }
+}

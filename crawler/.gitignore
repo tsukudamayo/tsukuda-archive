@@ -1,0 +1,9 @@
+.DS_Store
+python/chromedriver
+python/data/*
+node/puppetier/data/*
+node_modules/
+.env
+.png
+.jpg
+*.exe
