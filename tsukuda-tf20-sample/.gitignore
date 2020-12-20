@@ -1,0 +1,9 @@
+16class_random_train_data_labeled/
+sample_dir/
+saved_model/
+*.tflite
+summaries/
+data/
+data_*/
+training_*/
+

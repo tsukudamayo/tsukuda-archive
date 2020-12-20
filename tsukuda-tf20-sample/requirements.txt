@@ -1,0 +1,6 @@
+virtualenv
+epc
+numpy
+matplotlib
+pillow
+scipy
